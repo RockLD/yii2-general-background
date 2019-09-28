@@ -8,9 +8,9 @@ $password = $db_info['password'];
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host='.$host.':'.$port.';dbname='.$dbname,
-    'username' => $username,
-    'password' => $password,
+    'dsn' => 'mysql:host=localhost:3307;dbname=yii2-general-background',
+    'username' => 'root',
+    'password' => '123456',
     'charset' => 'utf8mb4',
 
     // Schema cache options (for production environment)

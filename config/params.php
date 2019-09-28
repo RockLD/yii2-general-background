@@ -3,7 +3,7 @@
 return [
     'adminEmail' => 'admin@example.com',
     'db_info' => [
-        'host' => 'http://localhost',
+        'host' => 'localhost',
         'port' => '3307',
         'username' => 'root',
         'pwd' => '123456',
