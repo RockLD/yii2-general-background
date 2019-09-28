@@ -1,10 +1,10 @@
 <?php
-$db = Yii::$app->params['db'];
-$host = $db['host'];
-$dbname = $db['dbname'];
-$port = $db['port'];
-$username = $db['username'];
-$password = $db['password'];
+$db_info = Yii::$app->params['db_info'];
+$host = $db_info['host'];
+$dbname = $db_info['dbname'];
+$port = $db_info['port'];
+$username = $db_info['username'];
+$password = $db_info['password'];
 
 return [
     'class' => 'yii\db\Connection',

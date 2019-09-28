@@ -7,11 +7,12 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
 use app\models\ContactForm;
 
 class SiteController extends Controller
 {
+    public $layout = false;
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
@@ -67,23 +68,25 @@ class SiteController extends Controller
     /**
      * Login action.
      *
-     * @return Response|string
+     * @return array
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+        $admin_id = Yii::$app->getSession()->get('admin_id');
+        if (!empty($admin_id)) {
+            return $this->redirect('/')->send();
+        }
+        $req = Yii::$app->getRequest();
+        if ($req->isAjax) {
+            Yii::$app->getResponse()->format = Response::FORMAT_JSON;
+            $uname = $req->post('uname');
+            $pword = $req->post('pword');
+            if (empty($uname) || empty($pword)) {
+                return ['code'=>40004,'msg'=>'请输入用户名或密码'];
+            }
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        return $this->render('login');
     }
 
     /**
